@@ -1,19 +1,13 @@
 from rest_framework import generics
-from rest_framework.response import Response
+
+from .models import Content
+from .serializers import ContentSerializer
 
 
 class ContentList(generics.ListAPIView):
-    queryset = None
-    serializer_class = None
+    queryset = Content.objects.all()
+    serializer_class = ContentSerializer
 
     def get(self, request, *args, **kwargs):
-        user = request.user.user_id
-        # user = "fake"
-        print(user)
+        print(f"HEY: {request.user.id=}")
         return super().get(request, *args, **kwargs)
-
-    def list(self, request, *args, **kwargs) -> Response:
-        user = request.user.user_id
-        # user = "fake"
-        print(user)
-        return Response({"user": user})
